@@ -1,9 +1,9 @@
 h1, h2, h3, h4, h5, h6, body{ padding: 0; margin: 0; }
 body{ background : url("../images/pattern.gif") repeat-y 100%; }
 
-fieldset{ display: block; -webkit-margin-start: 2px; -webkit-margin-end: 2px; -webkit-padding-before: 0.35em; -webkit-padding-start: 0.75em; -webkit-padding-end: 0.75em; -webkit-padding-after: 0.625em; border: 2px groove threedface;  }
+fieldset{ display: block; -moz-margin-start: 2px; -moz-margin-end: 2px; -moz-padding-before: 0.35em; -moz-padding-start: 0.75em; -moz-padding-end: 0.75em; -moz-padding-after: 0.625em; -webkit-margin-start: 2px; -webkit-margin-end: 2px; -webkit-padding-before: 0.35em; -webkit-padding-start: 0.75em; -webkit-padding-end: 0.75em; -webkit-padding-after: 0.625em; border: 2px groove threedface;  }
 
-fieldset legend{ display: block; text-indent: 0; position: relative; -webkit-padding-start: 2px; -webkit-padding-end: 2px; border: none; }
+fieldset legend{ display: block; text-indent: 0; position: relative; -moz-padding-start: 2px; -moz-padding-end: 2px; -webkit-padding-start: 2px; -webkit-padding-end: 2px; border: none; }
 
 h1{ background: #123445; color: white; position: fixed; width: 100%; font-size: 16px; padding: 10px; top: 0px; left: 0px; }
 
