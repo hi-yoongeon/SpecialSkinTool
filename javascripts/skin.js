@@ -86,9 +86,18 @@ SpecialSkin.PropertyController.getInstance = function(specialSkin){
   return ss_property.__instance;
 };
 
+SpecialSkin.PropertyController.eventHandlers = [];
 SpecialSkin.PropertyController.prototype = {
   clearPanel : function(){
+    this.removeAllEvent();
     this.__element.innerHTML = "";
+  },
+  removeAllEvent : function(){
+    var events = SpecialSkin.PropertyController.eventHandlers;
+    for(var i = 0, length = events.length; i < length; i++){
+      daum.Event.stopObserving( events[i] );
+    }
+    SpecialSkin.PropertyController.eventHandlers = [];
   },
   addProperty : function( element ){
     var nodeName = element.nodeName;
@@ -215,16 +224,13 @@ SpecialSkin.Properties.bindEventCreatedElement = function( element, property ){
 
 
   for( eventType in p_events ){
-
-    console.log( property_element );
-
-    property_element.addEventListener( eventType, function(){
+    var event_id = daum.Event.addEvent(property_element, eventType, function(){
 					 var e_func = p_events[""+eventType];
 					 if( typeof e_func === "function" ){
 					   e_func.call( property_element, target_element );
 					 }
-
 				       });
+    SpecialSkin.PropertyController.eventHandlers.push( event_id );
   }
 
   return property_element;
