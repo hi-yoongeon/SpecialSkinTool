@@ -136,7 +136,13 @@ SpecialSkin.Properties.linkProperty = [
 SpecialSkin.Properties.imageProperty = [
   {
     text : "src",
-    element : SpecialSkin.Properties.createElement( SpecialSkin.Properties.TEXT_FIELD )
+    element : SpecialSkin.Properties.createElement( SpecialSkin.Properties.TEXT_FIELD ),
+    events : {
+      blur : function( target_element ){
+	var value = this.value;
+	target_element.setAttribute("src", value);
+      }
+    }
   },
   {
     text : "alt",
@@ -146,15 +152,40 @@ SpecialSkin.Properties.imageProperty = [
 SpecialSkin.Properties.textProperty = [
   {
     text : "text",
-    element : SpecialSkin.Properties.createElement( SpecialSkin.Properties.TEXT_FIELD )
+    element : SpecialSkin.Properties.createElement( SpecialSkin.Properties.TEXT_FIELD ),
+    events : {
+      blur : function( target_element ){
+	var value = this.value;
+	target_element.innerHTML = value;
+      }
+    }
   }
 ];
 SpecialSkin.Properties.listProperty = [
   {
-    element : SpecialSkin.Properties.createElement(SpecialSkin.Properties.BUTTON, "Node 추가")
+    element : SpecialSkin.Properties.createElement(SpecialSkin.Properties.BUTTON, "Node 추가"),
+    events : {
+      click : function( target_element ){
+	var parent_element = target_element.parentNode;
+	var new_element = target_element.cloneNode(true);
+	parent_element.appendChild( new_element );
+	parent_element.display = "none";
+	parent_element.display = "block";
+      }
+    }
   },
   {
-    element : SpecialSkin.Properties.createElement(SpecialSkin.Properties.BUTTON, "Node 삭제")
+    element : SpecialSkin.Properties.createElement(SpecialSkin.Properties.BUTTON, "Node 삭제"),
+    events : {
+      click : function( target_element ){
+	var parent_element = target_element.parentNode;
+	console.log( parent_element );
+	parent_element.removeChild( target_element );
+	delete target_element;
+	parent_element.display = "none";
+	parent_element.display = "block";
+      }
+    }
   }
 ];
 SpecialSkin.Properties.boxProperty = [];
@@ -174,11 +205,30 @@ SpecialSkin.Properties.getCreatedElement = function( element, property ){
     }
   }
 
+  return SpecialSkin.Properties.bindEventCreatedElement( element, property );
+};
+
+SpecialSkin.Properties.bindEventCreatedElement = function( element, property ){
+  var property_element = property.element;
+  var p_events = property.events;
+  var target_element = element;
+
+
+  for( eventType in p_events ){
+
+    console.log( property_element );
+
+    property_element.addEventListener( eventType, function(){
+					 var e_func = p_events[""+eventType];
+					 if( typeof e_func === "function" ){
+					   e_func.call( property_element, target_element );
+					 }
+
+				       });
+  }
 
   return property_element;
 };
-
-
 
 
 
@@ -208,24 +258,27 @@ SpecialSkin.Tags.prototype = {
   },
   "generatePropertyElement" : function(){
     var property_elements = [];
-    var property_item;
-    var created_property_element;
     var _this = this;
     for( var i = 0, length = this.properties.length; i < length; i++ ){
       for( var j = 0, j_length = this.properties[i].length; j < j_length ;j++ ){
-	property_item = this.properties[i][j];
+	(function(){
+	   var property_item = _this.properties[i][j];
+	   var created_property_element;
 
-	if( typeof property_item.text !== "undefined" ){
-	  property_elements.push( document.createTextNode( property_item.text + " : ") );
-	}
-	created_property_element = SpecialSkin.Properties.getCreatedElement( this.element, property_item );
-	property_elements.push( created_property_element );
+	   if( typeof property_item.text !== "undefined" ){
+	     property_elements.push( document.createTextNode( property_item.text + " : ") );
+	   }
 
-	if( created_property_element.nodeName.toUpperCase() !== "BUTTON" ){
-	  property_elements.push( document.createElement("br") );
-	}
+	   created_property_element = SpecialSkin.Properties.getCreatedElement(_this.element, property_item );
+	   property_elements.push( created_property_element );
+
+	   if( created_property_element.nodeName.toUpperCase() !== "BUTTON" ){
+	     property_elements.push( document.createElement("br") );
+	   }
+	 })();
       }
     }
+    window.pe = property_elements;
     return property_elements;
   },
   "getPropertyElement" : function(){
@@ -248,7 +301,8 @@ SpecialSkin.Tags.factory = function( element ){
     "H3" : Tags.plainTextTag,
     "H4" : Tags.plainTextTag,
     "H5" : Tags.plainTextTag,
-    "H6" : Tags.plainTextTag
+    "H6" : Tags.plainTextTag,
+    "DT" : Tags.plainTextTag
   };
   var nodeName = element.nodeName.toUpperCase();
   var tagObject = null;
@@ -289,138 +343,3 @@ SpecialSkin.Tags.plainTextTag = function( element ){
   tag.addProperty( SpecialSkin.Properties.textProperty );
   return tag;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-SpecialSkin.PropertyController = function( id, specialSkin ){
-  this.__element = $(id);
-  this.specialSkin = specialSkin;
-};
-
-SpecialSkin.PropertyController.getInstance = function(specialSkin){
-  var ss_property = SpecialSkin.PropertyController;
-  if( typeof ss_property.__instance === "undefined" ){
-    ss_property.__instance = new ss_property( specialSkin.getOptions().properties_id, specialSkin );
-  }
-  return ss_property.__instance;
-};
-
-SpecialSkin.PropertyController.prototype = {
-  clearPanel : function(){
-    this.__element.innerHTML = "";
-  },
-  addProperty : function( element ){
-    var nodeName = element.nodeName;
-    var tag = SpecialSkin.Tag.factory( element );
-
-    if( tag !== null ){
-      this.insertHtmlToSidebar( tag.toHTML() );
-    }
-  },
-  insertHtmlToSidebar : function( html ){
-    var wrap = document.createElement("div");
-    wrap.innerHTML = html;
-    this.__element.appendChild( wrap.firstChild );
-  }
-};
-
-
-SpecialSkin.Property = function(){
-
-};
-
-SpecialSkin.Property.prototype = {
-
-};
-
-SpecialSkin.Property.LinkProperty = function(){
-
-};
-
-SpecialSkin.Property.ImageProperty = function(){
-
-};
-
-SpecialSkin.Property.TextProperty = function(){
-
-};
-
-SpecialSkin.Property.ListProperty = function(){
-
-};
-
-
-SpecialSkin.Tag = function( element ){
-  this.element = element;
-};
-SpecialSkin.Tag.factory = function( element ){
-  var Tag = SpecialSkin.Tag;
-  var availableTags = {
-    "P" : Tag.ParagraphTag,
-    "DIV" : Tag.DivisionTag,
-    "IMG" : Tag.ImageTag,
-    "A" : Tag.AnchorTag,
-    "LI" : Tag.ListTag,
-    "H1" : Tag.HeadTag,
-    "H2" : Tag.HeadTag,
-    "H3" : Tag.HeadTag,
-    "H4" : Tag.HeadTag,
-    "H5" : Tag.HeadTag,
-    "H6" : Tag.HeadTag
-  };
-  var nodeName = element.nodeName.toUpperCase();
-  var tagObject = null;
-
-  if( availableTags.hasOwnProperty( nodeName ) ){
-    console.log( "available tag : " + nodeName );
-    tagObject = new availableTags[nodeName]( element );
-  }
-
-  return tagObject;
-};
-
-SpecialSkin.Tag.prototype = {
-  toHTML : function(){
-    return "<fieldset><legend>ygmaster</legend></fieldset>";
-  }
-};
-
-SpecialSkin.Tag.ParagraphTag = SpecialSkin.Tag;
-SpecialSkin.Tag.DivisionTag = SpecialSkin.Tag;
-SpecialSkin.Tag.AnchorTag = SpecialSkin.Tag;
-SpecialSkin.Tag.ImageTag = SpecialSkin.Tag;
-SpecialSkin.Tag.ListTag = SpecialSkin.Tag;
-SpecialSkin.Tag.HeadTag = SpecialSkin.Tag;
-
-SpecialSkin.Tag.ParagraphTag.prototype = {
-
-};
-
-
-
-
-
-
-var Link = function(){
-	var p = document.createElement("p");
-	var text_input = document.createElement("input");
-	p.appendChild(document.createTextNode("text : "));
-	p.appendChild(text_input);
-	p.appendChild(document.createElement("br"));
-
-	return p;
-};
-
-
-
-*/
