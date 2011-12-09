@@ -146,11 +146,9 @@ SpecialSkin.Properties.imageProperty = [
   {
     text : "src",
     element : SpecialSkin.Properties.createElement( SpecialSkin.Properties.TEXT_FIELD ),
-    events : {
-      blur : function( target_element ){
+    event : function( target_element ){
 	var value = this.value;
 	target_element.setAttribute("src", value);
-      }
     }
   },
   {
@@ -162,38 +160,27 @@ SpecialSkin.Properties.textProperty = [
   {
     text : "text",
     element : SpecialSkin.Properties.createElement( SpecialSkin.Properties.TEXT_FIELD ),
-    events : {
-      blur : function( target_element ){
+    event : function( target_element ){
 	var value = this.value;
 	target_element.innerHTML = value;
       }
     }
-  }
 ];
 SpecialSkin.Properties.listProperty = [
   {
     element : SpecialSkin.Properties.createElement(SpecialSkin.Properties.BUTTON, "Node 추가"),
-    events : {
-      click : function( target_element ){
+    event : function( target_element ){
 	var parent_element = target_element.parentNode;
 	var new_element = target_element.cloneNode(true);
 	parent_element.appendChild( new_element );
-	parent_element.display = "none";
-	parent_element.display = "block";
-      }
     }
   },
   {
     element : SpecialSkin.Properties.createElement(SpecialSkin.Properties.BUTTON, "Node 삭제"),
-    events : {
-      click : function( target_element ){
+    event : function( target_element ){
 	var parent_element = target_element.parentNode;
-	console.log( parent_element );
 	parent_element.removeChild( target_element );
 	delete target_element;
-	parent_element.display = "none";
-	parent_element.display = "block";
-      }
     }
   }
 ];
@@ -219,20 +206,14 @@ SpecialSkin.Properties.getCreatedElement = function( element, property ){
 
 SpecialSkin.Properties.bindEventCreatedElement = function( element, property ){
   var property_element = property.element;
-  var p_events = property.events;
+  var event = property.event;
   var target_element = element;
+  var event_type =  property_element.nodeName.toUpperCase() === "INPUT" ? "blur" : "click";
+  var event_id = daum.Event.addEvent(property_element, event_type, function(){
+		   event.call( property_element, target_element );
+		   });
 
-
-  for( eventType in p_events ){
-    var event_id = daum.Event.addEvent(property_element, eventType, function(){
-					 var e_func = p_events[""+eventType];
-					 if( typeof e_func === "function" ){
-					   e_func.call( property_element, target_element );
-					 }
-				       });
-    SpecialSkin.PropertyController.eventHandlers.push( event_id );
-  }
-
+  SpecialSkin.PropertyController.eventHandlers.push( event_id );
   return property_element;
 };
 
