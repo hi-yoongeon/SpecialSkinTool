@@ -43,12 +43,15 @@ SpecialSkin.ViewController.getInstance = function(specialSkin){
 SpecialSkin.ViewController.prototype = {
   bindEvent : function(){
     var self = this;
+    var highlighter = SpecialSkin.highlighter;
     daum.Event.addEvent( this.__element, "click", function(e){
 			   self.specialSkin.propertyController.clearPanel();
 			   var srcElement = daum.Event.getElement(e);
 			   daum.Event.preventDefault(e);
 			   self.extractParent( srcElement );
+			   highlighter.overwrap( srcElement );
 			 });
+
   },
   extractParent : function( element ){
     while( element != this.__element ){
@@ -70,8 +73,52 @@ SpecialSkin.ViewController.prototype = {
 
 
 
+SpecialSkin.highlighter = function(){
+  var highlighter = SpecialSkin.highlighter;
+  var element = highlighter.__element;
+  if( typeof element === "undefined" ){
+    element = highlighter.__element = document.createElement("div");
+    highlighter.__elementInitStyle( element );
+    document.body.appendChild( element );
+    daum.Event.addEvent( element, "click", function(){ $E(element).hide(); } );
+  }
+
+  $E(element).show();
+  return element;
+};
+
+SpecialSkin.highlighter.__elementInitStyle = function( element ){
 
 
+
+  element.style.background = "rgba(255,0,0,0.3)";
+  element.style.border = "1px solid #ff0000";
+  element.style.zIndex = "99999";
+  element.style.position = "absolute";
+  element.style.left = "0px";
+  element.style.top = "0px";
+  element.style.width = "150px";
+  element.style.height = "150px";
+
+  return element;
+};
+
+SpecialSkin.highlighter.overwrap = function( element ){
+  var highlighter = SpecialSkin.highlighter();
+  var nodeName = element.nodeName.toUpperCase();
+
+  highlighter.style.height = ( element.offsetHeight - 2 ) + "px";
+  highlighter.style.width = ( element.offsetWidth - 2 ) + "px";
+
+  if( nodeName === "IMG" ){
+    highlighter.style.left = element.x + "px";
+    highlighter.style.top = element.y + "px";
+  }else{
+    highlighter.style.left = element.offsetLeft + "px";
+    highlighter.style.top = element.offsetTop + "px";
+  }
+
+};
 
 SpecialSkin.PropertyController = function( id, specialSkin ){
   this.__element = $(id);
@@ -236,11 +283,16 @@ SpecialSkin.Tags.prototype = {
   "wrapping_fieldset" : function( property_elements ){
     var fieldset = document.createElement("fieldset");
     var legend = document.createElement("legend");
+    var _this = this;
     legend.innerHTML = this.element.nodeName + " property";
     fieldset.appendChild( legend );
     for( var i = 0, length = property_elements.length; i < length; i++ ){
       fieldset.appendChild( property_elements[i] );
     }
+
+    daum.Event.addEvent( fieldset, "mouseover", function(){
+			   SpecialSkin.highlighter.overwrap( _this.element );
+			 } );
     return fieldset;
   },
   "generatePropertyElement" : function(){
