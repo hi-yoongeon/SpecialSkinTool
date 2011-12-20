@@ -433,6 +433,10 @@ special.Property.type = {};
      {
        text : "alt",
        element : special.CONST.ELEMENT.TEXT_FIELD
+     },
+     {
+       text : "동영상",
+       element : special.CONST.ELEMENT.CHECKBOX
      }
    ];
 
