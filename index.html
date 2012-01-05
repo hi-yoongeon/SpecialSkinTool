@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <script type="text/javascript" src="./javascripts/jigu-latest.min.js"></script>
-    <script type="text/javascript" src="./javascripts/skin.js"></script>
+    <script type="text/javascript" src="./javascripts/skin_editor/skin_editor.js"></script>
 
 
     <script type="text/javascript" src="http://s1.daumcdn.net/img.search/search/js/search_static_1109221346.js" charset="euc-kr"></script>
@@ -13,272 +13,256 @@
     <link rel="stylesheet" type="text/css" href="http://s1.daumcdn.net/img.search/search/css/search_coll_1108232011.css" />
 
 
-    <link rel="stylesheet" href="./stylesheets/skin.css" />
+    <link rel="stylesheet" href="./stylesheets/skin2.css" />
   </head>
   <body>
-    <h1>스페셜 스킨 Prototype</h1>
-    
-    <div id="wrapper">
-      <div id="sidebar">
-	<h2 class="sp_skin_title">Properties</h2>
+    <h1>스페셜 스킨 에디터</h1>
+    <div id="skin_editor_view">
 
-	<div id="properties">
-	</div>
-      </div>
-      <div id="canvas">
-	<h2 class="sp_skin_title">View</h2>
-	<div id="view">
+      <!-- 이슈동영상 Coll -->
+      <style type="text/css"> 
+	#issueLiveColl .thumb {display:block;position:relative;float:left;border:1px solid #e2e2e2;}
+	#issueLiveColl .thumb .ico_play {display:block;position:absolute;bottom:6px;left:6px;height:15px;width:13px;background:url(http://i1.daumcdn.net/imgsrc.search/search_all/2010/icon/ico_play.gif) no-repeat 0 0;cursor:pointer;}
+	#issueLiveColl .txt_tit {line-height:20px;}
+	#issueLiveColl .base {line-height:20px;}
+	#issueLiveColl .g_tit_u {display:block;}
+	#issueLiveColl .area_add {margin-top:19px;}
+	#issueLiveColl .list_vclip {overflow:hidden;width:100%;margin-top:8px;*margin-top:7px;}
+	#issueLiveColl .list_vclip li {float:left;width:122px;margin-left:26px;}
+	#issueLiveColl .list_vclip .fst {margin-left:0;}
+	#issueLiveColl .list_vclip .thumb {margin-bottom:6px;}
+	#issueLiveColl .list_vclip .stit {line-height:17px;}
+	#issueLiveColl .nmoreArea {padding-top:9px;*padding-top:8px;}
+	
+	/* UI수정_20110628 */
+	#issueLiveColl .collImg {margin:2px 17px 0 1px;*margin:1px 17px 0 1px;}
+	#issueLiveColl .collCont {padding-top:1px;*padding-top:0;}
+	#issueLiveColl .collDl .con {padding-left:11px;}
+	
+	#issueLiveColl .txt_tit {font-weight:bold;}
+	#issueLiveColl .thumb {border:0 none;}
+	#issueLiveColl .thumb .ico_play {display: block;overflow:hidden;position:absolute;width:13px;height:15px;left:6px;bottom: 6px;background: url("http://i1.daumcdn.net/imgsrc.search/search_all/2010/icon/ico_play.gif") no-repeat scroll 0 0;cursor: pointer;text-indent:-999em;}
+	#issueLiveColl .area_add {width:719px;overflow:hidden;margin-top:17px;*margin-top:17px;}
+	#issueLiveColl .area_add .wrap_tit {overflow:hidden;width:100%;line-height:19px;*line-height:20px;}
+	#issueLiveColl .list_vclip {margin-top:5px;*margin-top:4px;margin-left:1px;}
+	#issueLiveColl .list_vclip li {float:left;width:100px;margin-left:0px;margin-right:23px;}
+	#issueLiveColl .list_vclip li.lst {margin-right:0px;}
+	#issueLiveColl .list_vclip .thumb {float:none;width:100%;margin-bottom:8px;}
+	
+	#issueLiveColl .exact {margin-bottom:-4px;}
+	#issueLiveColl .exact .desc {margin:2px 0 7px 0;}
+	#issueLiveColl .desc {margin:4px 0 3px 0;*margin:4px 0 4px 0;line-height:19px;}
+	#issueLiveColl .btn_paging {float:right;width:36px;}
+	#issueLiveColl .btn_paging .typeBtn {height:16px;width:17px;background:url("http://i2.daumcdn.net/imgsrc.search/search_all/2011/image/relationsearch_new.gif") no-repeat;}
+	#issueLiveColl .btn_paging .btn_next {float:right;margin: 0 2px 0 0;background-position:-17px -45px;}
+	#issueLiveColl .btn_paging .btn_prev {float:left;background-position:0 -45px;}
+	#issueLiveColl .btn_paging .btn_next_off {float:right;margin: 0 2px 0 0;background-position:-17px -142px;}
+	#issueLiveColl .btn_paging .btn_prev_off {float:left;background-position:0 -142px;}
+	#issueLiveColl #issueLiveCollList {width:1500px;height:94px;overflow:hidden;}
+      </style>
 
-
-
-
-	  <!-- 이슈동영상 Coll -->
-	  <style type="text/css"> 
-	    #issueLiveColl .thumb {display:block;position:relative;float:left;border:1px solid #e2e2e2;}
-	    #issueLiveColl .thumb .ico_play {display:block;position:absolute;bottom:6px;left:6px;height:15px;width:13px;background:url(http://i1.daumcdn.net/imgsrc.search/search_all/2010/icon/ico_play.gif) no-repeat 0 0;cursor:pointer;}
-	    #issueLiveColl .txt_tit {line-height:20px;}
-	    #issueLiveColl .base {line-height:20px;}
-	    #issueLiveColl .g_tit_u {display:block;}
-	    #issueLiveColl .area_add {margin-top:19px;}
-	    #issueLiveColl .list_vclip {overflow:hidden;width:100%;margin-top:8px;*margin-top:7px;}
-	    #issueLiveColl .list_vclip li {float:left;width:122px;margin-left:26px;}
-	    #issueLiveColl .list_vclip .fst {margin-left:0;}
-	    #issueLiveColl .list_vclip .thumb {margin-bottom:6px;}
-	    #issueLiveColl .list_vclip .stit {line-height:17px;}
-	    #issueLiveColl .nmoreArea {padding-top:9px;*padding-top:8px;}
-	    
-	    /* UI수정_20110628 */
-	    #issueLiveColl .collImg {margin:2px 17px 0 1px;*margin:1px 17px 0 1px;}
-	    #issueLiveColl .collCont {padding-top:1px;*padding-top:0;}
-	    #issueLiveColl .collDl .con {padding-left:11px;}
-	    
-	    #issueLiveColl .txt_tit {font-weight:bold;}
-	    #issueLiveColl .thumb {border:0 none;}
-	    #issueLiveColl .thumb .ico_play {display: block;overflow:hidden;position:absolute;width:13px;height:15px;left:6px;bottom: 6px;background: url("http://i1.daumcdn.net/imgsrc.search/search_all/2010/icon/ico_play.gif") no-repeat scroll 0 0;cursor: pointer;text-indent:-999em;}
-	    #issueLiveColl .area_add {width:719px;overflow:hidden;margin-top:17px;*margin-top:17px;}
-	    #issueLiveColl .area_add .wrap_tit {overflow:hidden;width:100%;line-height:19px;*line-height:20px;}
-	    #issueLiveColl .list_vclip {margin-top:5px;*margin-top:4px;margin-left:1px;}
-	    #issueLiveColl .list_vclip li {float:left;width:100px;margin-left:0px;margin-right:23px;}
-	    #issueLiveColl .list_vclip li.lst {margin-right:0px;}
-	    #issueLiveColl .list_vclip .thumb {float:none;width:100%;margin-bottom:8px;}
-	    
-	    #issueLiveColl .exact {margin-bottom:-4px;}
-	    #issueLiveColl .exact .desc {margin:2px 0 7px 0;}
-	    #issueLiveColl .desc {margin:4px 0 3px 0;*margin:4px 0 4px 0;line-height:19px;}
-	    #issueLiveColl .btn_paging {float:right;width:36px;}
-	    #issueLiveColl .btn_paging .typeBtn {height:16px;width:17px;background:url("http://i2.daumcdn.net/imgsrc.search/search_all/2011/image/relationsearch_new.gif") no-repeat;}
-	    #issueLiveColl .btn_paging .btn_next {float:right;margin: 0 2px 0 0;background-position:-17px -45px;}
-	    #issueLiveColl .btn_paging .btn_prev {float:left;background-position:0 -45px;}
-	    #issueLiveColl .btn_paging .btn_next_off {float:right;margin: 0 2px 0 0;background-position:-17px -142px;}
-	    #issueLiveColl .btn_paging .btn_prev_off {float:left;background-position:0 -142px;}
-	    #issueLiveColl #issueLiveCollList {width:1500px;height:94px;overflow:hidden;}
-	  </style>
-
-	  <div id="issueLiveColl">
-	    <div class="collTitle">
-	      <h2>실시간 이슈 동영상</h2>
-	    </div> 
-	    <div class="collTot collWid"> 
-	      <div class="collImg"><a href="http://media.daum.net/entertain/showcase/singer/singer?id=5#364" target='_blank' class="thumb" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=1", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_3.jpg" alt="" width="130" height="100" /><span class="ico_play">재생</span></a></div>
-	      <div class="collCont exact">
-		<a href="http://media.daum.net/entertain/showcase/singer/singer?id=5#364" target='_blank' class="txt_tit" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=2", event);'>나는 가수다 - 박정현 '널 붙잡을 노래' 무편집 영상 보기</a>
-		<p class="desc base">10월 30일 MBC 나는 가수다 박정현 '널 붙잡을 노래' 무편집 영상이 공개되었다.</p>
-		<dl class="collDl">
-		  <dt class="tit">프로그램</dt>
-		  <dd class="con"><a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EB%82%98%EB%8A%94%20%EA%B0%80%EC%88%98%EB%8B%A4" target="_self" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>우리들의 일밤 - 나는 가수다</a></dd>
-		</dl>
-		<dl class="collDl">
-		  <dt class="tit">인물정보</dt>
-		  <dd class="con"><a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B0%80%EC%88%98%20%EB%B0%95%EC%A0%95%ED%98%84" target="_self" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>박정현</a></dd>
-		</dl>
-		<dl class="collDl">
-		  <dt class="tit">부가정보</dt>
-		  <dd class="con"><a class="stit" href="http://music.daum.net/musicbar/musicbar/detail?menu_id=1&board_id=2281" target="_blank" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>음원듣기</a>,&nbsp;<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EB%82%98%EB%8A%94%EA%B0%80%EC%88%98%EB%8B%A4%20%EC%88%9C%EC%9C%84" target="_self" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>순위보기</a>,&nbsp;<a class="stit" href="http://media.daum.net/entertain/showcase/singer/news" target="_blank" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>뉴스보기</a>,&nbsp;<a class="stit" href="http://media.daum.net/entertain/showcase/singer/live" target="_blank" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>라이브톡</a>,&nbsp;<a class="stit" href="http://media.daum.net/entertain/showcase/singer/photo#20111031070430742" target="_blank" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>포토갤러리</a></dd>
-		</dl>
-	      </div>
-	      <div class="clr"></div>
-	      <div class="area_add">
-		<div class="wrap_tit">
-		  <strong class="fs12 lsp fL">'나는 가수다' 9기 호주공연 영상 보기</strong>
-		  <span class="btn_paging"> 
-		    <a id="btnIssueLiveCollPrev" class="typeBtn btn_prev">이전</a>
-		    <a id="btnIssueLiveCollNext" class="typeBtn btn_next">다음</a> 
-		  </span>
-		</div>
-		<ul id="issueLiveCollList" class="list_vclip">
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=JK%EA%B9%80%EB%8F%99%EC%9A%B1%20%EC%83%81%EB%A1%9D%EC%88%98" target="_self" class="thumb" title="JK김동욱 - 상록수" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_2.jpg" alt="JK김동욱 - 상록수" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=JK%EA%B9%80%EB%8F%99%EC%9A%B1%20%EC%83%81%EB%A1%9D%EC%88%98" target="_self" title="JK김동욱 - 상록수" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">JK김동욱 - 상록..</a>
-		  </li>
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9C%A4%EB%8F%84%ED%98%84%20%EB%B6%89%EC%9D%80%EB%85%B8%EC%9D%84" target="_self" class="thumb" title="윤도현 - 붉은노을" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_6.jpg" alt="윤도현 - 붉은노을" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9C%A4%EB%8F%84%ED%98%84%20%EB%B6%89%EC%9D%80%EB%85%B8%EC%9D%84" target="_self" title="윤도현 - 붉은노을" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">윤도현 - 붉은노..</a>
-		  </li>
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EC%97%B0%EC%9A%B0%20%EB%82%B4%EC%82%AC%EB%9E%91%EB%82%B4%EA%B3%81%EC%97%90" target="_self" class="thumb" title="김연우 - 내사랑 내곁에" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_1.jpg" alt="김연우 - 내사랑 내곁에" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EC%97%B0%EC%9A%B0%20%EB%82%B4%EC%82%AC%EB%9E%91%EB%82%B4%EA%B3%81%EC%97%90" target="_self" title="김연우 - 내사랑 내곁에" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">김연우 - 내사랑..</a>
-		  </li>
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EB%B2%94%EC%88%98%20%EC%82%AC%EB%9E%91%ED%96%88%EC%A7%80%EB%A7%8C" target="_self" class="thumb" title="김범수 - 사랑했지만" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_7.jpg" alt="김범수 - 사랑했지만" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EB%B2%94%EC%88%98%20%EC%82%AC%EB%9E%91%ED%96%88%EC%A7%80%EB%A7%8C" target="_self" title="김범수 - 사랑했지만" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">김범수 - 사랑했..</a>
-		  </li>
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9D%B4%EC%86%8C%EB%9D%BC%20%EC%8A%AC%ED%94%94%EC%86%8D%EC%97%90%EA%B7%B8%EB%8C%88%EC%A7%80%EC%9B%8C%EC%95%BC%EB%A7%8C%ED%95%B4" target="_self" class="thumb" title="이소라 - 슬픔속에 그댈 지워야만해" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_4.jpg" alt="이소라 - 슬픔속에 그댈 지워야만해" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9D%B4%EC%86%8C%EB%9D%BC%20%EC%8A%AC%ED%94%94%EC%86%8D%EC%97%90%EA%B7%B8%EB%8C%88%EC%A7%80%EC%9B%8C%EC%95%BC%EB%A7%8C%ED%95%B4" target="_self" title="이소라 - 슬픔속에 그댈 지워야만해" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">이소라 - 슬픔속..</a>
-		  </li>
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EC%A1%B0%ED%95%9C%20%EB%82%98%EB%8A%94%EB%AC%B8%EC%A0%9C%EC%97%86%EC%96%B4" target="_self" class="thumb" title="김조한 - 나는 문제없어" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_5.jpg" alt="김조한 - 나는 문제없어" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EC%A1%B0%ED%95%9C%20%EB%82%98%EB%8A%94%EB%AC%B8%EC%A0%9C%EC%97%86%EC%96%B4" target="_self" title="김조한 - 나는 문제없어" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">김조한 - 나는..</a>
-		  </li>
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9E%A5%ED%98%9C%EC%A7%84%20%EB%AF%B8%EC%86%8C%EC%86%8D%EC%97%90%20%EB%B9%84%EC%B9%9C%20%EA%B7%B8%EB%8C%80" target="_self" class="thumb" title="장혜진 - 미소속에 비친 그대" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://i2.search.daumcdn.net/image02.search/03/a.af.84.45338039.-1.jpg" alt="장혜진 - 미소속에 비친 그대" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9E%A5%ED%98%9C%EC%A7%84%20%EB%AF%B8%EC%86%8C%EC%86%8D%EC%97%90%20%EB%B9%84%EC%B9%9C%20%EA%B7%B8%EB%8C%80" target="_self" title="장혜진 - 미소속에 비친 그대" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">장혜진 - 미소속..</a>
-		  </li>
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9E%90%EC%9A%B0%EB%A6%BC%20%EB%9D%BC%EA%B5%AC%EC%9A%94" target="_self" class="thumb" title="자우림 - ...라구요" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111024123038_2.jpg" alt="자우림 - ...라구요" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9E%90%EC%9A%B0%EB%A6%BC%20%EB%9D%BC%EA%B5%AC%EC%9A%94" target="_self" title="자우림 - ...라구요" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">자우림 - ...라..</a>
-		  </li>
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EB%B0%94%EB%B9%84%ED%82%B4%20%EC%82%AC%EB%9E%91%EC%82%AC%EB%9E%91%EC%82%AC%EB%9E%91" target="_self" class="thumb" title="바비킴 - 사랑사랑사랑" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://i2.search.daumcdn.net/image02.search/01/e.96.2c.45338628.-1.jpg" alt="바비킴 - 사랑사랑사랑" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EB%B0%94%EB%B9%84%ED%82%B4%20%EC%82%AC%EB%9E%91%EC%82%AC%EB%9E%91%EC%82%AC%EB%9E%91" target="_self" title="바비킴 - 사랑사랑사랑" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">바비킴 - 사랑사..</a>
-		  </li>
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9C%A4%EB%AF%BC%EC%88%98%20%EC%95%84%EB%A6%AC%EB%9E%91" target="_self" class="thumb" title="윤민수 - 아리랑" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://i2.search.daumcdn.net/image02.search/01/8.0f.03.45338445.-1.jpg" alt="윤민수 - 아리랑" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9C%A4%EB%AF%BC%EC%88%98%20%EC%95%84%EB%A6%AC%EB%9E%91" target="_self" title="윤민수 - 아리랑" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">윤민수 - 아리랑</a>
-		  </li>
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%A1%B0%EA%B7%9C%EC%B0%AC%20%EC%9D%B4%EB%B3%84%EC%9D%B4%EB%9E%80%20%EC%97%86%EB%8A%94%20%EA%B1%B0%EC%95%BC" target="_self" class="thumb" title="조규찬 - 이별이란 없는 거야" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://i2.search.daumcdn.net/image02.search/02/e.eb.8f.45338059.-1.jpg" alt="조규찬 - 이별이란 없는 거야" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%A1%B0%EA%B7%9C%EC%B0%AC%20%EC%9D%B4%EB%B3%84%EC%9D%B4%EB%9E%80%20%EC%97%86%EB%8A%94%20%EA%B1%B0%EC%95%BC" target="_self" title="조규찬 - 이별이란 없는 거야" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">조규찬 - 이별이..</a>
-		  </li>
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EA%B2%BD%ED%98%B8%20%EC%95%94%EC%97%B0" target="_self" class="thumb" title="김경호 - 암연" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111024123038_1.jpg" alt="김경호 - 암연" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EA%B2%BD%ED%98%B8%20%EC%95%94%EC%97%B0" target="_self" title="김경호 - 암연" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">김경호 - 암연</a>
-		  </li>
-		  <li>
-		    <a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9D%B8%EC%88%9C%EC%9D%B4%20%EB%B4%84%EC%97%AC%EB%A6%84%EA%B0%80%EC%9D%84%EA%B2%A8%EC%9A%B8" target="_self" class="thumb" title="인순이 - 봄여름가을겨울" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://i2.search.daumcdn.net/image02.search/01/0.7d.19.45340437.-1.jpg" alt="인순이 - 봄여름가을겨울" width="100" height="70" /><span class="ico_play">재생</span></a>
-		    <a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9D%B8%EC%88%9C%EC%9D%B4%20%EB%B4%84%EC%97%AC%EB%A6%84%EA%B0%80%EC%9D%84%EA%B2%A8%EC%9A%B8" target="_self" title="인순이 - 봄여름가을겨울" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">인순이 - 봄여름..</a>
-		  </li>
-		</ul>
-	      </div>
-	    </div> 
-	    <span class="nmoreArea"></span>
+      <div id="issueLiveColl">
+	<div class="collTitle">
+	  <h2>실시간 이슈 동영상</h2>
+	</div> 
+	<div class="collTot collWid"> 
+	  <div class="collImg"><a href="http://media.daum.net/entertain/showcase/singer/singer?id=5#364" target='_blank' class="thumb" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=1", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_3.jpg" alt="" width="130" height="100" /><span class="ico_play">재생</span></a></div>
+	  <div class="collCont exact">
+	    <a href="http://media.daum.net/entertain/showcase/singer/singer?id=5#364" target='_blank' class="txt_tit" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=2", event);'>나는 가수다 - 박정현 '널 붙잡을 노래' 무편집 영상 보기</a>
+	    <p class="desc base">10월 30일 MBC 나는 가수다 박정현 '널 붙잡을 노래' 무편집 영상이 공개되었다.</p>
+	    <dl class="collDl">
+	      <dt class="tit">프로그램</dt>
+	      <dd class="con"><a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EB%82%98%EB%8A%94%20%EA%B0%80%EC%88%98%EB%8B%A4" target="_self" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>우리들의 일밤 - 나는 가수다</a></dd>
+	    </dl>
+	    <dl class="collDl">
+	      <dt class="tit">인물정보</dt>
+	      <dd class="con"><a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B0%80%EC%88%98%20%EB%B0%95%EC%A0%95%ED%98%84" target="_self" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>박정현</a></dd>
+	    </dl>
+	    <dl class="collDl">
+	      <dt class="tit">부가정보</dt>
+	      <dd class="con"><a class="stit" href="http://music.daum.net/musicbar/musicbar/detail?menu_id=1&board_id=2281" target="_blank" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>음원듣기</a>,&nbsp;<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EB%82%98%EB%8A%94%EA%B0%80%EC%88%98%EB%8B%A4%20%EC%88%9C%EC%9C%84" target="_self" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>순위보기</a>,&nbsp;<a class="stit" href="http://media.daum.net/entertain/showcase/singer/news" target="_blank" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>뉴스보기</a>,&nbsp;<a class="stit" href="http://media.daum.net/entertain/showcase/singer/live" target="_blank" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>라이브톡</a>,&nbsp;<a class="stit" href="http://media.daum.net/entertain/showcase/singer/photo#20111031070430742" target="_blank" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=3", event);'>포토갤러리</a></dd>
+	    </dl>
 	  </div>
-	  <script type="text/javascript"> 
-var _jsStaticPaging = function(listId, viewCnt, options) {
+	  <div class="clr"></div>
+	  <div class="area_add">
+	    <div class="wrap_tit">
+	      <strong class="fs12 lsp fL">'나는 가수다' 9기 호주공연 영상 보기</strong>
+	      <span class="btn_paging"> 
+		<a id="btnIssueLiveCollPrev" class="typeBtn btn_prev">이전</a>
+		<a id="btnIssueLiveCollNext" class="typeBtn btn_next">다음</a> 
+	      </span>
+	    </div>
+	    <ul id="issueLiveCollList" class="list_vclip">
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=JK%EA%B9%80%EB%8F%99%EC%9A%B1%20%EC%83%81%EB%A1%9D%EC%88%98" target="_self" class="thumb" title="JK김동욱 - 상록수" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_2.jpg" alt="JK김동욱 - 상록수" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=JK%EA%B9%80%EB%8F%99%EC%9A%B1%20%EC%83%81%EB%A1%9D%EC%88%98" target="_self" title="JK김동욱 - 상록수" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">JK김동욱 - 상록..</a>
+	      </li>
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9C%A4%EB%8F%84%ED%98%84%20%EB%B6%89%EC%9D%80%EB%85%B8%EC%9D%84" target="_self" class="thumb" title="윤도현 - 붉은노을" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_6.jpg" alt="윤도현 - 붉은노을" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9C%A4%EB%8F%84%ED%98%84%20%EB%B6%89%EC%9D%80%EB%85%B8%EC%9D%84" target="_self" title="윤도현 - 붉은노을" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">윤도현 - 붉은노..</a>
+	      </li>
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EC%97%B0%EC%9A%B0%20%EB%82%B4%EC%82%AC%EB%9E%91%EB%82%B4%EA%B3%81%EC%97%90" target="_self" class="thumb" title="김연우 - 내사랑 내곁에" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_1.jpg" alt="김연우 - 내사랑 내곁에" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EC%97%B0%EC%9A%B0%20%EB%82%B4%EC%82%AC%EB%9E%91%EB%82%B4%EA%B3%81%EC%97%90" target="_self" title="김연우 - 내사랑 내곁에" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">김연우 - 내사랑..</a>
+	      </li>
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EB%B2%94%EC%88%98%20%EC%82%AC%EB%9E%91%ED%96%88%EC%A7%80%EB%A7%8C" target="_self" class="thumb" title="김범수 - 사랑했지만" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_7.jpg" alt="김범수 - 사랑했지만" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EB%B2%94%EC%88%98%20%EC%82%AC%EB%9E%91%ED%96%88%EC%A7%80%EB%A7%8C" target="_self" title="김범수 - 사랑했지만" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">김범수 - 사랑했..</a>
+	      </li>
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9D%B4%EC%86%8C%EB%9D%BC%20%EC%8A%AC%ED%94%94%EC%86%8D%EC%97%90%EA%B7%B8%EB%8C%88%EC%A7%80%EC%9B%8C%EC%95%BC%EB%A7%8C%ED%95%B4" target="_self" class="thumb" title="이소라 - 슬픔속에 그댈 지워야만해" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_4.jpg" alt="이소라 - 슬픔속에 그댈 지워야만해" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9D%B4%EC%86%8C%EB%9D%BC%20%EC%8A%AC%ED%94%94%EC%86%8D%EC%97%90%EA%B7%B8%EB%8C%88%EC%A7%80%EC%9B%8C%EC%95%BC%EB%A7%8C%ED%95%B4" target="_self" title="이소라 - 슬픔속에 그댈 지워야만해" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">이소라 - 슬픔속..</a>
+	      </li>
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EC%A1%B0%ED%95%9C%20%EB%82%98%EB%8A%94%EB%AC%B8%EC%A0%9C%EC%97%86%EC%96%B4" target="_self" class="thumb" title="김조한 - 나는 문제없어" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111031130802_5.jpg" alt="김조한 - 나는 문제없어" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EC%A1%B0%ED%95%9C%20%EB%82%98%EB%8A%94%EB%AC%B8%EC%A0%9C%EC%97%86%EC%96%B4" target="_self" title="김조한 - 나는 문제없어" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">김조한 - 나는..</a>
+	      </li>
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9E%A5%ED%98%9C%EC%A7%84%20%EB%AF%B8%EC%86%8C%EC%86%8D%EC%97%90%20%EB%B9%84%EC%B9%9C%20%EA%B7%B8%EB%8C%80" target="_self" class="thumb" title="장혜진 - 미소속에 비친 그대" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://i2.search.daumcdn.net/image02.search/03/a.af.84.45338039.-1.jpg" alt="장혜진 - 미소속에 비친 그대" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9E%A5%ED%98%9C%EC%A7%84%20%EB%AF%B8%EC%86%8C%EC%86%8D%EC%97%90%20%EB%B9%84%EC%B9%9C%20%EA%B7%B8%EB%8C%80" target="_self" title="장혜진 - 미소속에 비친 그대" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">장혜진 - 미소속..</a>
+	      </li>
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9E%90%EC%9A%B0%EB%A6%BC%20%EB%9D%BC%EA%B5%AC%EC%9A%94" target="_self" class="thumb" title="자우림 - ...라구요" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111024123038_2.jpg" alt="자우림 - ...라구요" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9E%90%EC%9A%B0%EB%A6%BC%20%EB%9D%BC%EA%B5%AC%EC%9A%94" target="_self" title="자우림 - ...라구요" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">자우림 - ...라..</a>
+	      </li>
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EB%B0%94%EB%B9%84%ED%82%B4%20%EC%82%AC%EB%9E%91%EC%82%AC%EB%9E%91%EC%82%AC%EB%9E%91" target="_self" class="thumb" title="바비킴 - 사랑사랑사랑" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://i2.search.daumcdn.net/image02.search/01/e.96.2c.45338628.-1.jpg" alt="바비킴 - 사랑사랑사랑" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EB%B0%94%EB%B9%84%ED%82%B4%20%EC%82%AC%EB%9E%91%EC%82%AC%EB%9E%91%EC%82%AC%EB%9E%91" target="_self" title="바비킴 - 사랑사랑사랑" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">바비킴 - 사랑사..</a>
+	      </li>
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9C%A4%EB%AF%BC%EC%88%98%20%EC%95%84%EB%A6%AC%EB%9E%91" target="_self" class="thumb" title="윤민수 - 아리랑" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://i2.search.daumcdn.net/image02.search/01/8.0f.03.45338445.-1.jpg" alt="윤민수 - 아리랑" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9C%A4%EB%AF%BC%EC%88%98%20%EC%95%84%EB%A6%AC%EB%9E%91" target="_self" title="윤민수 - 아리랑" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">윤민수 - 아리랑</a>
+	      </li>
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%A1%B0%EA%B7%9C%EC%B0%AC%20%EC%9D%B4%EB%B3%84%EC%9D%B4%EB%9E%80%20%EC%97%86%EB%8A%94%20%EA%B1%B0%EC%95%BC" target="_self" class="thumb" title="조규찬 - 이별이란 없는 거야" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://i2.search.daumcdn.net/image02.search/02/e.eb.8f.45338059.-1.jpg" alt="조규찬 - 이별이란 없는 거야" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%A1%B0%EA%B7%9C%EC%B0%AC%20%EC%9D%B4%EB%B3%84%EC%9D%B4%EB%9E%80%20%EC%97%86%EB%8A%94%20%EA%B1%B0%EC%95%BC" target="_self" title="조규찬 - 이별이란 없는 거야" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">조규찬 - 이별이..</a>
+	      </li>
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EA%B2%BD%ED%98%B8%20%EC%95%94%EC%97%B0" target="_self" class="thumb" title="김경호 - 암연" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://imgsrc2.search.daum.net/special_search/special/1110/111024123038_1.jpg" alt="김경호 - 암연" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EA%B9%80%EA%B2%BD%ED%98%B8%20%EC%95%94%EC%97%B0" target="_self" title="김경호 - 암연" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">김경호 - 암연</a>
+	      </li>
+	      <li>
+		<a href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9D%B8%EC%88%9C%EC%9D%B4%20%EB%B4%84%EC%97%AC%EB%A6%84%EA%B0%80%EC%9D%84%EA%B2%A8%EC%9A%B8" target="_self" class="thumb" title="인순이 - 봄여름가을겨울" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=4", event);'><img src="http://i2.search.daumcdn.net/image02.search/01/0.7d.19.45340437.-1.jpg" alt="인순이 - 봄여름가을겨울" width="100" height="70" /><span class="ico_play">재생</span></a>
+		<a class="stit" href="http://search.daum.net/search?w=tot&nil_coll=EDC&q=%EC%9D%B8%EC%88%9C%EC%9D%B4%20%EB%B4%84%EC%97%AC%EB%A6%84%EA%B0%80%EC%9D%84%EA%B2%A8%EC%9A%B8" target="_self" title="인순이 - 봄여름가을겨울" onclick='smartLog(this, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=5", event);' title="">인순이 - 봄여름..</a>
+	      </li>
+	    </ul>
+	  </div>
+	</div> 
+	<span class="nmoreArea"></span>
+      </div>
+      <script type="text/javascript"> 
+	var _jsStaticPaging = function(listId, viewCnt, options) {
 	this.options = {
-		btnPrevId : "",
-		btnNextId : "",
-		listTagName : "li",
-		flagReturnPage : true,
-		flagDisable : false,
-		prevClassName : "typeBtn btn_prev",
-		nextClassName : "typeBtn btn_next",
-		firstClassName : "typeBtn btn_prev_off",
-		endClassName : "typeBtn btn_next_off"
+	btnPrevId : "",
+	btnNextId : "",
+	listTagName : "li",
+	flagReturnPage : true,
+	flagDisable : false,
+	prevClassName : "typeBtn btn_prev",
+	nextClassName : "typeBtn btn_next",
+	firstClassName : "typeBtn btn_prev_off",
+	endClassName : "typeBtn btn_next_off"
 	};
- 
+	
 	daumSF.extend(this.options, options, true);
- 
+	
 	this.oList = daumSF.$(listId);
 	this.tagName = this.options.listTagName;
 	this.viewCnt = viewCnt;
 	this.oBtnPrev = (this.options.btnPrevId) ? daumSF.$(this.options.btnPrevId) : null;
 	this.oBtnNext = (this.options.btnNextId) ? daumSF.$(this.options.btnNextId) : null;
- 
+	
 	if(this.oBtnPrev) daumSF.Event.addEvent(this.oBtnPrev, "click", daumSF.Function.bind(this.pagePrev, this));
 	if(this.oBtnNext) daumSF.Event.addEvent(this.oBtnNext, "click", daumSF.Function.bind(this.pageNext, this));
- 
+	
 	this.init();
-}
- 
-_jsStaticPaging.prototype = {
+	}
+	
+	_jsStaticPaging.prototype = {
 	init : function() {
-		this.list = daumSF.$T(this.tagName, this.oList);
-		this.totalCount = this.list.length;
-		this.totalPage = Math.ceil(this.totalCount/this.viewCnt);
-		this.needPaging = (this.totalCount > this.viewCnt);
-		if(!this.needPaging) {
-			if(this.oBtnPrev) this.oBtnPrev.style.display = "none";
-			if(this.oBtnNext) this.oBtnNext.style.display = "none";
-		} else {
-			if(this.oBtnPrev) this.oBtnPrev.style.display = "";
-			if(this.oBtnNext) this.oBtnNext.style.display = "";
-		}
-		this.curPage = 1;
-		this.changePage(1);
+	this.list = daumSF.$T(this.tagName, this.oList);
+	this.totalCount = this.list.length;
+	this.totalPage = Math.ceil(this.totalCount/this.viewCnt);
+	this.needPaging = (this.totalCount > this.viewCnt);
+	if(!this.needPaging) {
+	if(this.oBtnPrev) this.oBtnPrev.style.display = "none";
+	if(this.oBtnNext) this.oBtnNext.style.display = "none";
+	} else {
+	if(this.oBtnPrev) this.oBtnPrev.style.display = "";
+	if(this.oBtnNext) this.oBtnNext.style.display = "";
+	}
+	this.curPage = 1;
+	this.changePage(1);
 	},
 	pagePrev : function() {
-		this.changePage(--this.curPage);
-		smartLog(null, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=6", null);
-		
+	this.changePage(--this.curPage);
+	smartLog(null, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=6", null);
+	
 	},
 	pageNext : function() {
-		this.changePage(++this.curPage);
-		smartLog(null, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=6", null);
+	this.changePage(++this.curPage);
+	smartLog(null, "s=TO&a=BJLV&pg=1&rc=1&r=1&p=6", null);
 	},
 	changePage : function(n) {
-		if(this.options.flagReturnPage) {
-			if(n <= 0) {
-				this.curPage = this.totalPage;
-			} else if (n > this.totalPage) {
-				this.curPage = 1;
-			}
-		} else if (this.options.flagDisable) {
-			if(n <= 0) {
-				this.curPage = 1;
-				if(this.oBtnPrev) this.oBtnPrev.className = this.options.firstClassName;
-				if(this.oBtnNext) this.oBtnNext.className = this.options.nextClassName;
-				return;
-			} else if (n > this.totalPage) {
-				this.curPage = this.totalPage;
-				if(this.oBtnPrev) this.oBtnPrev.className = this.options.prevClassName;
-				if(this.oBtnNext) this.oBtnNext.className = this.options.endClassName;
-				return;
-			} else if(n==1) {
-				if(this.oBtnPrev) this.oBtnPrev.className = this.options.firstClassName;
-				if(this.oBtnNext) this.oBtnNext.className = this.options.nextClassName;
-			} else if (n == this.totalPage) {
-				if(this.oBtnPrev) this.oBtnPrev.className = this.options.prevClassName;
-				if(this.oBtnNext) this.oBtnNext.className = this.options.endClassName;
-			} else {
-				if(this.oBtnPrev) this.oBtnPrev.className = this.options.prevClassName;
-				if(this.oBtnNext) this.oBtnNext.className = this.options.nextClassName;
-			}
-		}
- 
-		var min = this.viewCnt * (this.curPage-1);
-		var max = this.viewCnt * this.curPage;
- 
-		for(var i = 0 ; i < this.totalCount ; ++i) {
-			if(min <= i && i < max) {
-				this.list[i].style.display = "block";
-			} else {
-				this.list[i].style.display = "none";
-			}
-		}
-	}
-};
- 
-var _jsStaticPagingExec = new _jsStaticPaging("issueLiveCollList", 6, {btnPrevId:"btnIssueLiveCollPrev", btnNextId:"btnIssueLiveCollNext",flagReturnPage:false,flagDisable:true});
- 
-</script>
-<!-- end 이슈동영상 Coll -->
-
-
-
-
-
-
-
-	</div>
-      </div>
+	if(this.options.flagReturnPage) {
+	if(n <= 0) {
+		this.curPage = this.totalPage;
+		} else if (n > this.totalPage) {
+	  this.curPage = 1;
+	  }
+	  } else if (this.options.flagDisable) {
+	  if(n <= 0) {
+		  this.curPage = 1;
+		  if(this.oBtnPrev) this.oBtnPrev.className = this.options.firstClassName;
+		  if(this.oBtnNext) this.oBtnNext.className = this.options.nextClassName;
+		  return;
+		  } else if (n > this.totalPage) {
+	    this.curPage = this.totalPage;
+	    if(this.oBtnPrev) this.oBtnPrev.className = this.options.prevClassName;
+	    if(this.oBtnNext) this.oBtnNext.className = this.options.endClassName;
+	    return;
+	    } else if(n==1) {
+	    if(this.oBtnPrev) this.oBtnPrev.className = this.options.firstClassName;
+	    if(this.oBtnNext) this.oBtnNext.className = this.options.nextClassName;
+	    } else if (n == this.totalPage) {
+	    if(this.oBtnPrev) this.oBtnPrev.className = this.options.prevClassName;
+	    if(this.oBtnNext) this.oBtnNext.className = this.options.endClassName;
+	    } else {
+	    if(this.oBtnPrev) this.oBtnPrev.className = this.options.prevClassName;
+	    if(this.oBtnNext) this.oBtnNext.className = this.options.nextClassName;
+	    }
+	    }
+	    
+	    var min = this.viewCnt * (this.curPage-1);
+	    var max = this.viewCnt * this.curPage;
+	    
+	    for(var i = 0 ; i < this.totalCount ; ++i) {
+				if(min <= i && i < max) {
+						   this.list[i].style.display = "block";
+						   } else {
+						   this.list[i].style.display = "none";
+						   }
+						   }
+						   }
+						   };
+						   
+						   var _jsStaticPagingExec = new _jsStaticPaging("issueLiveCollList", 6, {btnPrevId:"btnIssueLiveCollPrev", btnNextId:"btnIssueLiveCollNext",flagReturnPage:false,flagDisable:true});
+						   
+						   </script>
+      <!-- end 이슈동영상 Coll -->
     </div>
 
+
+
     <script type="text/javascript">
-      var sp_skin = new special.Skin();
-      sp_skin.viewController.bindEvent();
+      var specialSkinEditor = new special.SkinEditor();
+      
+      var toolbox = specialSkinEditor.getToolbox();
+
     </script>
 
+
+    
   </body>
   
 </html>
